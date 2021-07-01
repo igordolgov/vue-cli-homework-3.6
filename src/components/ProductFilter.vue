@@ -70,7 +70,11 @@
           Цвет
         </legend>
         <ul class="colors">
-          <li class="colors__item">
+          <li
+            class="colors__item"
+            v-for="color in colorsId.code"
+            :key="color.id"
+          >
             <label class="colors__label">
               <input
                 class="colors__radio sr-only"
@@ -78,6 +82,7 @@
                 name="color"
                 value="#73B6EA"
                 checked=""
+                v-model="colorsId"
               >
               <span
                 class="colors__value"
@@ -286,6 +291,7 @@
 
 <script>
 import categories from '../data/categories';
+import colorsId from '../data/colorsId';
 
 export default {
   data() {
@@ -293,6 +299,7 @@ export default {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
+      currentColorsId: 0,
     };
   },
   props: {
@@ -308,10 +315,17 @@ export default {
       type: Number,
       default: 0,
     },
+    colorsId: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     categories() {
       return categories;
+    },
+    colors() {
+      return colorsId;
     },
   },
   watch: {
@@ -324,17 +338,22 @@ export default {
     categoryId(value) {
       this.currentCategoryId = value;
     },
+    colorsId(value) {
+      this.currentColorsId = value;
+    },
   },
   methods: {
     submit() {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
+      this.$emit('update:colorsId', this.currentColorsId);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
+      this.$emit('update:colorsId', 0);
     },
   },
 };
