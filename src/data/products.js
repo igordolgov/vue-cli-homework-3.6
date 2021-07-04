@@ -95,28 +95,4 @@ export default [
     image: 'img/headphones.jpg',
     colorsId: [1, 3, 5, 6, 7],
   },
-  {
-    categoryId: 4,
-    id: 13,
-    title: 'Радионяня Motorola MBP16',
-    price: 3690,
-    image: 'img/radio.jpg',
-    colorsId: [1, 6],
-  },
-  {
-    categoryId: 1,
-    id: 14,
-    title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
-    price: 5660,
-    image: 'img/toothbrush.jpg',
-    colorsId: [1, 6],
-  },
-  {
-    categoryId: 2,
-    id: 15,
-    title: 'Смартфон Xiaomi Mi Mix 3 6/128GB',
-    price: 21790,
-    image: 'img/phone.jpg',
-    colorsId: [3, 6, 7],
-  },
 ];

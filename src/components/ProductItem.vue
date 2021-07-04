@@ -76,6 +76,7 @@ export default {
       color: '#73B6EA',
     };
   },
+
   // eslint-disable-next-line vue/require-prop-types
   props: ['product'],
 };

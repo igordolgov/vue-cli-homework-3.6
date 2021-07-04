@@ -47,7 +47,6 @@
         <label class="form__label form__label--select">
           <select
             class="form__select"
-            type="text"
             name="category"
             v-model.number="currentCategoryId"
           >
@@ -79,98 +78,13 @@
               <input
                 class="colors__radio sr-only"
                 type="radio"
-                name="color"
-                value="#73B6EA"
+                :value="color.code"
                 checked=""
-                v-model="colorsId"
+                v-model="currentColorsId"
               >
               <span
                 class="colors__value"
-                style="background-color: #73B6EA;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#FFBE15"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #FFBE15;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#939393"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #939393;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#8BE000"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #8BE000;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#FF6B00"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #FF6B00;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#FFF"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #FFF;"
-              />
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                name="color"
-                value="#000"
-              >
-              <span
-                class="colors__value"
-                style="background-color: #000;"
+                :style="{'background-color':color.code}"
               />
             </label>
           </li>
@@ -316,8 +230,8 @@ export default {
       default: 0,
     },
     colorsId: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '',
     },
   },
   computed: {
