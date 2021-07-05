@@ -69,7 +69,8 @@ export default {
 
       if (this.filterColorsId) {
         filteredProducts = filteredProducts
-          .filter((product) => product.colorsId.code === this.filterColorsId);
+          .filter((product) => product.colors === this.filterColorsId);
+        // TODO перебрать product.colors чтобы найти цвета каждого продукта
       }
 
       return filteredProducts;

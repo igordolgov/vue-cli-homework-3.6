@@ -15,8 +15,8 @@ export default {
   components: { ProductItem },
   props: {
     products: {
-      type: String,
-      default: '',
+      type: Array,
+      default: () => [],
     },
   },
 };

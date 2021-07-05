@@ -71,7 +71,7 @@
         <ul class="colors">
           <li
             class="colors__item"
-            v-for="color in colorsId.code"
+            v-for="color in colors"
             :key="color.id"
           >
             <label class="colors__label">
@@ -205,7 +205,7 @@
 
 <script>
 import categories from '../data/categories';
-import colorsId from '../data/colorsId';
+import colors from '../data/colorsId';
 
 export default {
   data() {
@@ -239,7 +239,7 @@ export default {
       return categories;
     },
     colors() {
-      return colorsId;
+      return colors;
     },
   },
   watch: {
