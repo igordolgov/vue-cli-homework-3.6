@@ -1,4 +1,5 @@
-export default [
+// список товаров (массив)
+export default [ // экспортируем список (массив) товаров
   {
     categoryId: 4,
     id: 1,

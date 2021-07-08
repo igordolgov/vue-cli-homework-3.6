@@ -3,6 +3,7 @@
     <li class="pagination__item">
       <a
         class="pagination__link pagination__link--arrow"
+        :class="{'pagination__link--disabled': page === 1}"
         aria-label="Предыдущая страница"
         href="#"
         @click.prevent="prevPage()"
@@ -16,6 +17,9 @@
         </svg>
       </a>
     </li>
+    <!-- Отобразим нумерацию на странице. Жирным шрифтом (класс
+    'pagination__link--current) отображается только текущая страница (т.е.
+    при условии, что номер страницы совпадает с номером текущей страницы)-->
     <li
       class="pagination__item"
       v-for="pageNumber in pages"
@@ -33,6 +37,7 @@
     <li class="pagination__item">
       <a
         class="pagination__link pagination__link--arrow"
+        :class="{'pagination__link--disabled': page === pages}"
         href="#"
         aria-label="Следующая страница"
         @click.prevent="nextPage()"
@@ -55,7 +60,7 @@ export default {
     prop: 'page',
     event: 'paginate',
   },
-  props: {
+  props: { // Входящие параметры комплнента:
     page: {
       type: Number,
       default: 0,
@@ -69,8 +74,9 @@ export default {
       default: 0,
     },
   },
-  computed: {
-    pages() {
+  computed: { // Вычисляемые функции компонента:
+    pages() { // Вычисляем количество страниц: общее количество товаров
+    // разделим на количество элементов на странице (и округлим в большую сторону)
       return Math.ceil(this.count / this.perPage);
     },
   },
@@ -78,11 +84,19 @@ export default {
     paginate(page) {
       this.$emit('paginate', page);
     },
-    prevPage() {
-      this.$emit('paginate', (this.page - 1));
+    prevPage() { // Предыдущая страница
+      if (this.page === 1) {
+        this.$emit('paginate', (this.page));
+      } else {
+        this.$emit('paginate', (this.page - 1));
+      }
     },
-    nextPage() {
-      this.$emit('paginate', (this.page + 1));
+    nextPage() { // Следующая страница
+      if (this.page >= (this.count / this.perPage)) {
+        this.$emit('paginate', (this.page));
+      } else {
+        this.$emit('paginate', (this.page + 1));
+      }
     },
   },
 };

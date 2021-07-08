@@ -1,4 +1,5 @@
 <template>
+  <!-- Шаблон компонента (отдельно от JavaScript) -->
   <aside class="filter">
     <h2
       class="filter__title"
@@ -208,15 +209,16 @@ import categories from '../data/categories';
 import colors from '../data/colorsId';
 
 export default {
-  data() {
+  data() { // Состояние (В компоненте состояние должно быть функцией, а не объектом).
+  // Если значения этих свойств меняются, компонент перерисуется
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
-      currentColorsId: 0,
+      currentColorsId: '',
     };
   },
-  props: {
+  props: { // входные параметры:
     priceFrom: {
       type: Number,
       default: 0,
@@ -234,7 +236,7 @@ export default {
       default: '',
     },
   },
-  computed: {
+  computed: { // Методы, которые каждый раз пересчитываются
     categories() {
       return categories;
     },
@@ -256,18 +258,26 @@ export default {
       this.currentColorsId = value;
     },
   },
-  methods: {
+  methods: { // Методы, используемые только для действий (без пересчёта)
     submit() {
+      // $emit - метод для отправки событий (для двунаправленной связи).
+      // У него два агрумента: первый - название события (в "cebab-case")
+      // и второй - любые данные, передаваемые вместе с событием
+      // (чтобы их вывести, используется переменная $event),
+      // например: @priceFrom="alert($event)"
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
       this.$emit('update:colorsId', this.currentColorsId);
     },
     reset() {
+      // Если мы записываем название события с "update:", мы можем воспользоваться
+      // модификатором для v-bind ".sync", который будет отлавливать это событие и
+      // передавать ему свойство, которое мы указываем в v-bind (см. в App.vue)
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:colorsId', 0);
+      this.$emit('update:colorsId', '');
     },
   },
 };

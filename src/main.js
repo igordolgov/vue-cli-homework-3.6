@@ -1,13 +1,9 @@
-import Vue from 'vue';
-import App from './App.vue';
-// import { firstVariable, secondVariable } from './first';
-// import alertFunction from './second';
+import Vue from 'vue'; // Импортируем Vue (из папки node_modules)
+import App from './App.vue'; // Импортируем приложение App.vue (с именем App)
 
 Vue.config.productionTip = false;
 
+// Инициализируем Vue instance и крепим его к div c id "App" (в public/index.html)
 new Vue({
   render: (h) => h(App),
 }).$mount('#app');
-
-// alertFunction(firstVariable);
-// alertFunction(secondVariable);
