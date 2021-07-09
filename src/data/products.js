@@ -14,7 +14,7 @@ export default [ // экспортируем список (массив) тов�
     title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
     price: 5660,
     image: 'img/toothbrush.jpg',
-    colors: ['#FFF', '#000'],
+    colors: ['#FFF', '#000', '#8BE000'],
   },
   {
     categoryId: 2,

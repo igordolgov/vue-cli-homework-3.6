@@ -20,6 +20,7 @@
           Цена
         </legend>
         <label class="form__label form__label--price">
+          <!-- через v-model привязываем пропсы к полям ввода -->
           <input
             class="form__input"
             type="text"
@@ -205,12 +206,13 @@
 </template>
 
 <script>
+// Импортируем данные из файлов в новые переменные
 import categories from '../data/categories';
 import colors from '../data/colorsId';
 
 export default {
   data() { // Состояние (В компоненте состояние должно быть функцией, а не объектом).
-  // Если значения этих свойств меняются, компонент перерисуется
+  // Если значения этих свойств изменятся, компонент перерисуется
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
@@ -218,7 +220,7 @@ export default {
       currentColorsId: '',
     };
   },
-  props: { // входные параметры:
+  props: { // Входные параметры (их нужно привязать с помощью v-model):
     priceFrom: {
       type: Number,
       default: 0,

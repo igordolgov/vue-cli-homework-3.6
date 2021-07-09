@@ -7,6 +7,7 @@
         aria-label="Предыдущая страница"
         href="#"
         @click.prevent="prevPage()"
+        :disabled="page === 0"
       >
         <svg
           width="8"
@@ -17,9 +18,12 @@
         </svg>
       </a>
     </li>
-    <!-- Отобразим нумерацию на странице. Жирным шрифтом (класс
-    'pagination__link--current) отображается только текущая страница (т.е.
-    при условии, что номер страницы совпадает с номером текущей страницы)-->
+    <!-- Отобразим нумерацию на странице (с помощью перебора "v-for").
+    Жирным шрифтом (класс 'pagination__link--current) отображается только
+    текущая страница (т.е. при условии, что номер страницы совпадает с номером
+    текущей страницы).
+    Модификатор .prevent (для директивы v-on) используется чтобы предотвратить
+    поведение при клике по умолчанию (переход наверх страницы и т.п.) -->
     <li
       class="pagination__item"
       v-for="pageNumber in pages"
@@ -41,6 +45,7 @@
         href="#"
         aria-label="Следующая страница"
         @click.prevent="nextPage()"
+        :disabled="page >= pages -1"
       >
         <svg
           width="8"
@@ -56,11 +61,12 @@
 
 <script>
 export default {
+  // настроим директиву v-model (см. в App.vue|<BasePagination >)
   model: {
-    prop: 'page',
-    event: 'paginate',
+    prop: 'page', // свойтво, которое передаётся, будет записываться в 'page'
+    event: 'paginate', // событие, которое мы передадим, назовём 'paginate'
   },
-  props: { // Входящие параметры комплнента:
+  props: { // Входящие параметры компонента:
     page: {
       type: Number,
       default: 0,
@@ -81,13 +87,15 @@ export default {
     },
   },
   methods: {
-    paginate(page) {
-      this.$emit('paginate', page);
+    paginate(page) { // Переключение на страницу по клику на одноимённом номере
+    // Про $emit см. в файле ProductFilter.vue
+      this.$emit('paginate', page); // см. настройки model выше
     },
     prevPage() { // Предыдущая страница
-      if (this.page === 1) {
+      if (this.page === 1) { // Если мы на странице 1, при клике на стрелочку
+      // оставаться на этой же странице (т.е. никуда не переходить)
         this.$emit('paginate', (this.page));
-      } else {
+      } else { // иначе перейти на предыдущую страницу (с номером меньшим на 1)
         this.$emit('paginate', (this.page - 1));
       }
     },
