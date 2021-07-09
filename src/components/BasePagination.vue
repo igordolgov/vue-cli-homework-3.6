@@ -92,17 +92,12 @@ export default {
       this.$emit('paginate', page); // см. настройки model выше
     },
     prevPage() { // Предыдущая страница
-      if (this.page === 1) { // Если мы на странице 1, при клике на стрелочку
-      // оставаться на этой же странице (т.е. никуда не переходить)
-        this.$emit('paginate', (this.page));
-      } else { // иначе перейти на предыдущую страницу (с номером меньшим на 1)
+      if (this.page !== 1) { // Если мы на странице 1, при клике на стрелочку
         this.$emit('paginate', (this.page - 1));
       }
     },
     nextPage() { // Следующая страница
-      if (this.page >= (this.count / this.perPage)) {
-        this.$emit('paginate', (this.page));
-      } else {
+      if (this.page < (this.count / this.perPage)) {
         this.$emit('paginate', (this.page + 1));
       }
     },
