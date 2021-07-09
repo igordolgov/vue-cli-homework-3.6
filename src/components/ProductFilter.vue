@@ -20,7 +20,8 @@
           Цена
         </legend>
         <label class="form__label form__label--price">
-          <!-- через v-model привязываем пропсы к полям ввода -->
+          <!-- Через v-model привязываем пропсы к полям ввода.
+          С помощью модификатора .number значения конвертируются в числа -->
           <input
             class="form__input"
             type="text"
@@ -211,7 +212,7 @@ import categories from '../data/categories';
 import colors from '../data/colorsId';
 
 export default {
-  data() { // Состояние (В компоненте состояние должно быть функцией, а не объектом).
+  data() { // СОСТОЯНИЕ (В компоненте состояние должно быть функцией, а не объектом).
   // Если значения этих свойств изменятся, компонент перерисуется
     return {
       currentPriceFrom: 0,
@@ -220,7 +221,7 @@ export default {
       currentColorsId: '',
     };
   },
-  props: { // Входные параметры (их нужно привязать с помощью v-model):
+  props: { // ВХОДНЫЕ ПАРАМЕТРЫ (их нужно привязать с помощью v-model):
     priceFrom: {
       type: Number,
       default: 0,
@@ -246,8 +247,11 @@ export default {
       return colors;
     },
   },
-  watch: {
-    priceFrom(value) {
+  watch: { // НАБЛЮДАТЕЛЬ (механизм, который следит за свойством или параметром, и как
+  // только значение этого свойства меняется, вызывается определённая нами функция).
+    priceFrom(value) { // Как только priceFrom изменится, мы изменим текущее значение,
+    // которое хранится в состоянии. В качестве значения используем первый аргумент,
+    // который приходит в эту функцию (новое значение, которое изменилось)
       this.currentPriceFrom = value;
     },
     priceTo(value) {
@@ -261,18 +265,19 @@ export default {
     },
   },
   methods: { // Методы, используемые только для действий (без пересчёта)
-    submit() {
+    submit() { // Функция обработки событий при нажатии на кнопку "Применить".
       // $emit - метод для отправки событий (для двунаправленной связи).
       // У него два агрумента: первый - название события (в "cebab-case")
       // и второй - любые данные, передаваемые вместе с событием
       // (чтобы их вывести, используется переменная $event),
       // например: @priceFrom="alert($event)"
-      this.$emit('update:priceFrom', this.currentPriceFrom);
+      this.$emit('update:priceFrom', this.currentPriceFrom); // Говорим, что
+      // изменилось поле priceFrom, а в качестве значения будет значение из состояния
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
       this.$emit('update:colorsId', this.currentColorsId);
     },
-    reset() {
+    reset() { // Обработка событий при нажатии на кнопку "Сбросить".
       // Если мы записываем название события с "update:", мы можем воспользоваться
       // модификатором для v-bind ".sync", который будет отлавливать это событие и
       // передавать ему свойство, которое мы указываем в v-bind (см. в App.vue)
